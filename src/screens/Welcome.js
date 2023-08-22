@@ -82,19 +82,6 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontWeight: 'bold'
   },
-  form:{
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopRightRadius: 200,
-    borderTopLeftRadius: 200,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    height: '100%',
-    transform: [{scaleX:1.5}],
-    overflow: 'hidden',
-  },
   textLogin:{
     color: 'rgb(255, 255, 255)'
   }
