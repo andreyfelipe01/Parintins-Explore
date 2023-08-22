@@ -20,7 +20,7 @@ export default function Welcome({navigation}) {
           />
         </View> 
         <View>
-          <Text style={styles.textWelcome}>Bem vindo ao</Text>
+          <Text style={styles.textWelcome}>Seja Bem vindo ao</Text>
           <Text style={styles.textNameApp}>Parintins Explorer</Text>
         </View>
       </View>
