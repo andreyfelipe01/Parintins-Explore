@@ -16,17 +16,17 @@ export default function Welcome({navigation}) {
         <View style={styles.containerImage}>
           <Image
             source={require('../../assets/favicon.png')}
-            style={{height: 100, width: 100}}
+            style={{height: 180, width: 180}}
           />
         </View> 
         <View>
-          <Text style={styles.textWelcome}>Seja Bem vindo ao</Text>
+          <Text style={styles.textWelcome}>Bem vindo ao</Text>
           <Text style={styles.textNameApp}>Parintins Explorer</Text>
         </View>
       </View>
 
       <View style={styles.containerTouchables}>
-        <View style={styles.form}/>
+       
 
           <TouchableOpacity style={{paddingBottom: 50}} onPress={() => {navigation.navigate("cadastro")}} >
             <View style={{alignItems: 'center'}}>
