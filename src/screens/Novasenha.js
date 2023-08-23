@@ -17,10 +17,10 @@ export default function Novas(){
                 <View style={styles.containerImage}>
                     <Image
                     source={require('../../assets/favicon.png')}
-                    style={{height:180, width:180}}
+                    style={{height:180, width:180, marginTop:10}}
                     />
                 </View>
-                <View>
+                <View style={styles.textdatela}>
                     <Text style={styles.textNameApp}>Nova Senha</Text>
                     <Text style={styles.textWelcome}>Recuperar Conta</Text>
                 </View>
@@ -59,14 +59,15 @@ const styles = StyleSheet.create({
         right: 0
       },
       container:{
-        flex: 1
+        height:'auto',
       },
       containerLogoText:{
-       flex:1
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
       },
       containerImage:{
         height: 200
-
       },
       containerTouchables:{
         flex: 1,
@@ -101,5 +102,8 @@ const styles = StyleSheet.create({
         borderRadius:50,
         padding:4,
         paddingLeft:14
+      },
+      textdatela:{
+        marginTop:-15
       }
 })
