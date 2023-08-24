@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function Cad(){
     return (
       <View style={styles.container}>
-        
+
       <LinearGradient
         colors={['#ff4142', '#c03c99', '#7b38fb']}
         style={styles.linearGradient}
@@ -27,8 +27,13 @@ export default function Cad(){
       </View>
       </View>
       <View style={styles.containerTouchables}>
-
+        <View style={styles.form}/>
       <View>
+        <Text>Nome:</Text>
+        <TextInput
+          style={styles.input}
+        />
+
         <Text>Email:</Text>
         <TextInput
           style={styles.input}
