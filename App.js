@@ -7,7 +7,7 @@ const Pilha = createNativeStackNavigator();
 //Importação de telas
 import Idioma from './src/screens/Idioma';
 import Welcome from './src/screens/Welcome';
-import Cadrastro from './src/screens/Cadrastro';
+import Cadrastro from './src/screens/Novasenha';
 
 export default function App() {
   return (
