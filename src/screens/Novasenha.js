@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
       textsenha:{
         color:'white',
         padding:9
-
       },
       input:{
         backgroundColor:'white',
