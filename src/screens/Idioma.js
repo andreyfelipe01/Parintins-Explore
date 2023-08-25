@@ -28,7 +28,7 @@ export default function Idioma ({navigation}){
     
           <TouchableOpacity
           style={styles.iconBox}
-          onPress={() => {
+          onPress={() => {navigation.navigate('portugues')
             // 
           }}>
           <Text style={styles.iconText}> PORTUGUÊS - BRASIL</Text>
