@@ -16,7 +16,7 @@ export default function Welcome({navigation}) {
         <View style={styles.containerImage}>
           <Image
             source={require('../../assets/favicon.png')}
-            style={{height: 180, width: 180}}
+            style={{height: 160, width: 160}}
           />
         </View> 
         <View>
