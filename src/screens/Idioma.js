@@ -17,7 +17,7 @@ export default function Idioma ({navigation}){
             <View style={styles.containerImage}>
                 <Image
                         source={require('../../assets/favicon.png')}
-                        style={{height: 180, width: 180}} />
+                        style={{height: 160, width: 160}} />
             </View> 
         <View>
           
@@ -120,6 +120,9 @@ const styles = StyleSheet.create({
         fontSize: 20,   // Defina o tamanho da fonte
         fontWeight: 'bold', // Defina o peso da fonte, se necessário
       },
+      containerImage: {
+        marginTop: 15
+      }
       
 }
 
