@@ -58,9 +58,6 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0
       },
-      container:{
-        height:'auto',
-      },
       containerLogoText:{
         flex:1,
         alignItems: 'center',
