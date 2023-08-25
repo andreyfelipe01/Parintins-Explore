@@ -1,51 +1,58 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView, Dimensions} from "react-native";
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Novas(){
-    return(
-        <View style={styles.container}>
-            <LinearGradient 
-                style={styles.linearGradient}
-                colors={['#ff4142', '#c03c99', '#7b38fb']} 
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 1 }}
-            />
-            <View style={{alignItems: "center", height:'100%', justifyContent: "space-around"}}>
-            <View style={styles.containerLogoText}>
-                <View style={styles.containerImage}>
-                    <Image
-                    source={require('../../assets/favicon.png')}
-                    style={{height:180, width:180, marginTop:10}}
-                    />
-                </View>
-                <View style={styles.textdatela}>
-                    <Text style={styles.textNameApp}>Nova Senha</Text>
-                    <Text style={styles.textWelcome}>Recuperar Conta</Text>
-                </View>
-            </View>
-        <View style={{flex: 1}}>
-            <View style={styles.fundotransparente}>
-                <Text style={styles.textsenha}>Senha</Text>
-                <TextInput
-                style={styles.input}
-                secureTextEntry={true}
-                />
 
-                <Text style={styles.textsenha}>Confirmar senha</Text>
-                <TextInput
-                style={styles.input}
-                secureTextEntry={true}
-                />
-                <TouchableOpacity>
-                    <View style={{alignItems: 'center' , marginTop:40}}>
-                    <Button text="Recuperar Conta" />
-                    </View>
-                </TouchableOpacity>
+  //Mostrar a altura atual da tela
+  //console.log(Dimensions.get("window").height)
+
+  return(
+    <View style={styles.container}>     
+      <LinearGradient 
+        style={styles.linearGradient}
+        colors={['#ff4142', '#c03c99', '#7b38fb']} 
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 1 }}
+      />
+      
+      <ScrollView>
+        <View style={styles.contentContainer}>
+
+          <View style={styles.containerLogoText}>
+            <View style={styles.containerImage}>
+              <Image
+                source={require('../../assets/favicon.png')}
+                style={{height:180, width:180}}
+              />
             </View>
+            <View>
+                <Text style={styles.textNameApp}>Nova Senha</Text>
+                <Text style={styles.textWelcome}>Recuperar Conta</Text>
+            </View>
+          </View>
+
+          <View style={styles.fundotransparente}>
+            <Text style={styles.textsenha}>Senha</Text>
+            <TextInput
+              style={styles.input}
+              secureTextEntry={true}
+            />
+            <Text style={styles.textsenha}>Confirmar senha</Text>
+            <TextInput
+              style={styles.input}
+              secureTextEntry={true}
+            />
+            <TouchableOpacity>
+              <View style={{alignItems: 'center' , marginTop:40}}>
+                <Button text="Recuperar Conta" />
+              </View>
+            </TouchableOpacity>
+          </View>
+          
         </View>
-        </View>
+      </ScrollView>
     </View>
     )
 }
@@ -58,10 +65,13 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0
       },
-      containerLogoText:{
-        flex:1,
-        alignItems: 'center',
-        justifyContent: 'center'
+      container:{
+        flex: 1,
+      },
+      contentContainer:{
+        alignItems: "center", 
+        justifyContent: "space-evenly", 
+        height: Dimensions.get("window").height
       },
       containerImage:{
         height: 200
@@ -98,8 +108,5 @@ const styles = StyleSheet.create({
         borderRadius:50,
         padding:4,
         paddingLeft:14
-      },
-      textdatela:{
-        marginTop:-15
       }
 })
