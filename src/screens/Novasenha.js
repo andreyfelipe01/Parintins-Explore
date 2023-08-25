@@ -24,7 +24,7 @@ export default function Novas(){
             <View style={styles.containerImage}>
               <Image
                 source={require('../../assets/favicon.png')}
-                style={{height:180, width:180}}
+                style={{height:170, width:170}}
               />
             </View>
             <View>
