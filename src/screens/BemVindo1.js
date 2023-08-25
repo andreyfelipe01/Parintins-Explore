@@ -1,10 +1,15 @@
 import {Text, View, StyleSheet,Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function Bemvindo(){
-  return(
+//Função setTimeout execulta uma operação depois de um
+//dado tempo (em milisegundo)
 
-    <View style={styles.container}>
+export default function SplashBemvindo ({navigation}){
+  
+    setTimeout(()=>{navigation.navigate('home')},2000)
+    return(
+
+      <View style={styles.container}>
       <LinearGradient 
         style={styles.linearGradient}
         colors={['#ff4142', '#c03c99', '#7b38fb']} 
