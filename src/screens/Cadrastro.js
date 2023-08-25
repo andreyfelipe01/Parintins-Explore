@@ -17,7 +17,7 @@ export default function Cad(){
       <View style={styles.containerImage}>
           <Image
             source={require('../../assets/favicon.png')}
-            style={{height: 100, width: 100}}
+            style={{height: 170, width: 170}}
           />
       </View> 
       <View>
