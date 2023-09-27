@@ -1,9 +1,12 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Button from '../components/Button';
 
 export default function Idioma ({navigation}){
+  useEffect(()=>{
+    navigation.getParent().setOptions({tabBarStyle:{display:'none'}})
+  },[])
     return(
         <View style={styles.container}>
 

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function Novas(){
+export default function Login({navigation}){
 
   //Mostrar a altura atual da tela
   //console.log(Dimensions.get("window").height)
@@ -28,25 +28,26 @@ export default function Novas(){
               />
             </View>
             <View>
-                <Text style={styles.textNameApp}>Nova Senha</Text>
-                <Text style={styles.textWelcome}>Recuperar Conta</Text>
+                <Text style={styles.textNameApp}>Login</Text>
             </View>
           </View>
 
           <View style={styles.fundotransparente}>
+            <Text style={styles.textsenha}>Nome</Text>
+            <TextInput
+              placeholder="Ex: Bruna Amaral"
+              style={styles.input}
+              secureTextEntry={true}
+            />
             <Text style={styles.textsenha}>Senha</Text>
             <TextInput
+              placeholder="*************"
               style={styles.input}
               secureTextEntry={true}
             />
-            <Text style={styles.textsenha}>Confirmar senha</Text>
-            <TextInput
-              style={styles.input}
-              secureTextEntry={true}
-            />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{navigation.navigate('tela1app')}}>
               <View style={{alignItems: 'center' , marginTop:40}}>
-                <Button text="Recuperar Conta" />
+                <Button text="Entrar" />
               </View>
             </TouchableOpacity>
           </View>
@@ -80,11 +81,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end'
-      },
-      textWelcome:{
-        color: '#FFF',
-        fontSize: 18,
-        textAlign: 'center',
       },
       textNameApp:{
         color: '#FFF',

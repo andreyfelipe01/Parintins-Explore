@@ -36,7 +36,7 @@ export default function Welcome({navigation}) {
 
           <View style={{paddingBottom: 60, flexDirection: 'row'}}>
             <Text style={styles.textLogin}>Já possui cadastro? </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{navigation.navigate('login')}}>
               <Text style={styles.textLogin}>Login </Text>
             </TouchableOpacity>
           </View>
