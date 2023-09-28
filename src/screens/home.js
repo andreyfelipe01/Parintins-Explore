@@ -120,15 +120,6 @@ export default function TelaH({navigation}){
                     <Text style={styles.textocaixa2}>canta galo</Text>
                 </View>
             </View>
-            <View>
-                <View>
-                    <Image
-                        source={require('../icon/catedral.jpeg')}
-                        style={styles.img2}
-                    />
-                    <Text>Catedral</Text>
-                </View>
-            </View>
         </View>
     )
 }
