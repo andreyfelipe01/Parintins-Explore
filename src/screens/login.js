@@ -45,7 +45,7 @@ export default function Login({navigation}){
               style={styles.input}
               secureTextEntry={true}
             />
-            <TouchableOpacity onPress={()=>{navigation.navigate('tela1app')}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
               <View style={{alignItems: 'center' , marginTop:40}}>
                 <Button text="Entrar" />
               </View>

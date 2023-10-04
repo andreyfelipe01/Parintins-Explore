@@ -1,3 +1,5 @@
+import React, {useState} from 'react'
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -6,8 +8,11 @@ import Bemvindo from '../screens/BemVindo1';
 import Login from '../screens/login';
 import Welcome from '../screens/Welcome';
 import Cadastro from '../screens/Cadrastro';
-import TelaH from '../screens/home';
+import ModalScreen from '../components/ModalScreen';
 
+import TelaHome from '../screens/home';
+import Map from '../screens/Map'
+import QrCode from '../screens/QRCode';
 
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -16,20 +21,19 @@ import { FontAwesome5 } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function HomeStack() {
+function RouteCadastro() {
     return (
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}>
-  
         <Stack.Screen 
             name="Home1" 
             component={Idioma}
             
         />
         <Stack.Screen 
-            name='portugues'
+            name='bemvindo'
             component={Bemvindo}
         />
         <Stack.Screen 
@@ -40,23 +44,27 @@ function HomeStack() {
             name='cadastro'
             component={Cadastro}
         />
+        <Stack.Screen
+            name='ModalScreen'
+            component={ModalScreen}
+            options={{ presentation: 'transparentModal' }}
+        />
         <Stack.Screen 
             name='login'
             component={Login}
         />
-        <Stack.Screen 
-            name='tela1app'
-            component={TelaH}
-        />
-
-  
       </Stack.Navigator>
     );
   }
 
 export function Routes () {
+
+    const [ isFirstAccess, setIsFirstAccess ] = useState(true);
+    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
     return(
         <Tab.Navigator
+            initialRouteName={isFirstAccess ? 'RouteCadastro' : 'Home'}
             screenOptions={{
                 tabBarActiveTintColor:'white',
                 tabBarShowLabel: false,
@@ -69,14 +77,12 @@ export function Routes () {
                     paddingRight:20,
                     height:'7%'
                 }    
-            }}
-                    
+            }}         
         >
             <Tab.Screen
                 name="Home"
-                component={HomeStack}
+                component={TelaHome}
                 options={{
-                    
                     headerShown: false,
                     tabBarIcon: ({color , size , focused}) => {
                         if(focused){
@@ -84,12 +90,11 @@ export function Routes () {
                         }
                             return <Ionicons name="home-outline" size={size} color={'#8b8b8b'} />
                     },
-                    
                 }}
             />
             <Tab.Screen
                 name="Home2"
-                component={HomeStack}
+                component={Map}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({color , size , focused}) => {
@@ -98,13 +103,11 @@ export function Routes () {
                         }
                             return <Ionicons name="map-outline" size={size} color={'#8b8b8b'} />
                     },
-                    
-
                 }}
             />
             <Tab.Screen
                 name="Home4"
-                component={HomeStack}
+                component={QrCode}
                 options={{
                     
                     headerShown: false,
@@ -119,7 +122,7 @@ export function Routes () {
             />
             <Tab.Screen
                 name="Home5"
-                component={HomeStack}
+                component={TelaHome}
                 options={{
                     
                     headerShown: false,
@@ -134,7 +137,7 @@ export function Routes () {
             />
             <Tab.Screen
                 name="Home6"
-                component={HomeStack}
+                component={TelaHome}
                 options={{
                     
                     headerShown: false,
@@ -149,7 +152,7 @@ export function Routes () {
             />
             <Tab.Screen
                 name="Home3"
-                component={HomeStack}
+                component={TelaHome}
                 options={{
                     
                     headerShown: false,
@@ -159,6 +162,23 @@ export function Routes () {
                         }
                             return <FontAwesome name="user-o" size={22} color={'#8b8b8b'} />
                     }
+
+                }}
+            />
+            <Tab.Screen
+                name="RouteCadastro"
+                component={RouteCadastro}
+                options={{
+                    tabBarStyle: {display: 'none'},
+                    headerShown: false,
+                    tabBarIcon: ({color , size , focused}) => {
+                        if(focused){
+                            return <FontAwesome name="user" size={size} color={'#5a4ea0'}/>
+                        }
+                            return <FontAwesome name="user-o" size={22} color={'#8b8b8b'} />
+                    },
+                    tabBarItemStyle: { display: 'none' },
+                    tabBarStyle: { display: 'none' },
 
                 }}
             />

@@ -6,9 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function TelaH({navigation}){
-    useEffect(()=>{
-        navigation.getParent().setOptions({tabBarStyle:{display:'flex'}})
-      },[])
       
     return(
         <View style={styles.container}>
@@ -162,7 +159,7 @@ const styles = StyleSheet.create({
     pesquisa:{
         flexDirection:'row',
         width:'100%',
-        height:'20%',
+        height: 150,
         alignItems:'center',
         gap:20,
         
@@ -228,7 +225,9 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         marginTop:'8%',
-        gap:160
+        width: '100%',
+        paddingHorizontal: 15,
+        justifyContent: 'space-between'
     },
     textoemnegritoemeiog:{
         fontWeight:'bold',
