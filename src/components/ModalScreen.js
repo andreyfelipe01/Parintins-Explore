@@ -2,6 +2,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 import {Picker} from '@react-native-picker/picker';
 import {AntDesign} from 'react-native-vector-icons'
 import Button from './Button';
+import { useState } from 'react';
 
 //Criação da pilha de navegação
 
@@ -11,6 +12,9 @@ import Button from './Button';
 
 //Criação do modal
 export default function ModalScreen({ navigation }) {
+
+  const [pergunta, setPergunta] = useState('')
+  const [resposta, setResposta] = useState('')
 
   //Criação de uma array de perguntas para ser mapeado
   const questions = [
@@ -31,13 +35,13 @@ export default function ModalScreen({ navigation }) {
         {/* Criação do Picker*/}
         <Picker
           style={styles.picker}
-          //selectedValue={response}
-          //onValueChange={(itemValue, itemIndex) =>
-            //setResponse(itemValue)
-          //}
+          selectedValue={pergunta}
+          onValueChange={(itemValue, itemIndex) =>
+            setPergunta(itemValue)
+          }
           >
           {/*Item do picker para indicar a escolha da pergunta*/}
-          <Picker.Item label="-- Selecione a pergunta" value="1" />
+          <Picker.Item label="-- Selecione a pergunta" value="1"/>
 
           {/*Aqui a array de questões é iterado para renderizar todas as perguntas declaradas*/}
 
@@ -51,26 +55,14 @@ export default function ModalScreen({ navigation }) {
             style={styles.response}
             placeholder="Sua resposta"
             placeholderTextColor='#777'
+            value={resposta}
+            onChangeText={setResposta}
         />
-
-        <Picker
-          style={styles.picker}
-          //selectedValue={response}
-          //onValueChange={(itemValue, itemIndex) =>
-            //setResponse(itemValue)
-          //}
-          >
-          <Picker.Item label="-- Selecione a pergunta" value="1" />
-          {questions.map((question, index) => (
-          <Picker.Item key={index} label={question} value={question} />
-          ))}
-        </Picker>
-        <TextInput
-            style={styles.response}
-            placeholder="Sua resposta"
-            placeholderTextColor='#777'
-        />
-        <TouchableOpacity onPress={()=>{navigation.goBack()}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate({
+            name: 'cadastro',
+            params: { pergunta: pergunta, resposta: resposta},
+            merge: true,
+          });}}>
           {/*Modifiquei o botão para atender algumas necessidades (se puder olhar na pasta de componentes onde está o botão, verá algumas modificações no estilo. Acabei utilizando um operador ternário tratando os parâmetros passados aqui no botão abaixo, só pra agilizar)*/}
           <Button text="Salvar" color='#000' shadow={true}/>
         </TouchableOpacity>

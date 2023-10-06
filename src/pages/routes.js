@@ -4,16 +4,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Idioma from '../screens/Idioma';
-import Bemvindo from '../screens/BemVindo1';
-import Login from '../screens/login';
+import Bemvindo from '../screens/WelcomeTransition';
+import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
 import Cadastro from '../screens/Cadrastro';
 import ModalScreen from '../components/ModalScreen';
 
-import TelaHome from '../screens/home';
+import TelaHome from '../screens/Home';
 import Map from '../screens/Map'
 import QrCode from '../screens/QRCode';
-
+import Dicionario from '../screens/Biblioteca';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -73,8 +73,8 @@ export function Routes () {
 
                 tabBarStyle:{
                     backgroundColor: 'white',
-                    paddingLeft:20,
-                    paddingRight:20,
+                    paddingLeft:10,
+                    paddingRight:10,
                     height:'7%'
                 }    
             }}         
@@ -136,8 +136,8 @@ export function Routes () {
                 }}
             />
             <Tab.Screen
-                name="Home6"
-                component={TelaHome}
+                name="dicionario"
+                component={Dicionario}
                 options={{
                     
                     headerShown: false,

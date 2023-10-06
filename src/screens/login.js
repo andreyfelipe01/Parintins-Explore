@@ -33,9 +33,9 @@ export default function Login({navigation}){
           </View>
 
           <View style={styles.fundotransparente}>
-            <Text style={styles.textsenha}>Nome</Text>
+            <Text style={styles.textsenha}>Nome de Usuario</Text>
             <TextInput
-              placeholder="Ex: Bruna Amaral"
+              placeholder="Ex: usuario123"
               style={styles.input}
               secureTextEntry={true}
             />
