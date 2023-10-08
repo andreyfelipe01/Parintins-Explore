@@ -16,8 +16,13 @@ export default function Idioma({ navigation }) {
   }
 
   function feedbackColorButtons(buttonlang) {
-    return lang == buttonlang ? '#2F2' : '#FFF'
+    return lang == buttonlang ? '#2D2' : '#FFF'
   }
+
+  function feedbackColorText(buttonlang) {
+    return lang == buttonlang ? '#FFF' : 'gray'
+  }
+  
   return (
     <View style={styles.container}>
 
@@ -45,7 +50,7 @@ export default function Idioma({ navigation }) {
             onPress={() => {
               setLang('pt')
             }}>
-            <Text style={styles.iconText}> Português - Brasil</Text>
+            <Text style={[styles.iconText, {color: feedbackColorText('pt')}]}> Português - Brasil</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -53,7 +58,7 @@ export default function Idioma({ navigation }) {
             onPress={() => {
               setLang('en')
             }}>
-            <Text style={styles.iconText}>English</Text>
+            <Text style={[styles.iconText, {color: feedbackColorText('en')}]}>English</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -61,7 +66,7 @@ export default function Idioma({ navigation }) {
             onPress={() => {
               setLang('es')
             }}>
-            <Text style={styles.iconText}>Espanõl</Text>
+            <Text style={[styles.iconText, {color: feedbackColorText('es')}]}>Espanõl</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={{ alignItems: 'center', marginTop: 100 }} onPress={() => { navigatePage() }}>
@@ -129,7 +134,6 @@ const styles = StyleSheet.create({
   },
 
   iconText: {
-    color: 'gray', // Defina a cor do texto
     fontSize: 20,   // Defina o tamanho da fonte
     fontWeight: 'bold', // Defina o peso da fonte, se necessário
   },

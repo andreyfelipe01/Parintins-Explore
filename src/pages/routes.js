@@ -7,7 +7,7 @@ import Idioma from '../screens/Idioma';
 import Bemvindo from '../screens/WelcomeTransition';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
-import Cadastro from '../screens/Cadrastro';
+import Cadastro from '../screens/Cadastro';
 import ModalScreen from '../components/ModalScreen';
 
 import TelaHome from '../screens/Home';

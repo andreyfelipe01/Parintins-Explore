@@ -26,20 +26,25 @@ export default function Welcome({navigation}) {
       </View>
 
       <View style={styles.containerTouchables}>
-       
 
-          <TouchableOpacity style={{paddingBottom: 50}} onPress={() => {navigation.navigate("cadastro")}} >
+          <TouchableOpacity style={{paddingBottom: 30}} onPress={() => {navigation.navigate("login")}} >
             <View style={{alignItems: 'center'}}>
-              <Button text="Cadastre-se agora"  />
+              <Button text="Fazer Login"  />
             </View>
           </TouchableOpacity>
 
-          <View style={{paddingBottom: 60, flexDirection: 'row'}}>
-            <Text style={styles.textLogin}>Já possui cadastro? </Text>
-            <TouchableOpacity onPress={()=>{navigation.navigate('login')}}>
-              <Text style={styles.textLogin}>Login </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={{paddingBottom: 30}} onPress={() => {navigation.navigate("cadastro")}} >
+            <View style={{alignItems: 'center'}}>
+              <Button text="Cadastre-se agora"  backgroundColor={"rgba(0, 255, 0, 0.7)"}/>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{paddingBottom: 50}} onPress={() => {navigation.navigate("Home")}} >
+            <View style={{alignItems: 'center'}}>
+              <Button text="Continuar sem conta"  />
+            </View>
+          </TouchableOpacity>
+
       </View>
     </View>
   );

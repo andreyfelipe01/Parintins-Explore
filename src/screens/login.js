@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView, Dimensions} from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView, Dimensions, Alert} from "react-native";
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -7,6 +7,36 @@ export default function Login({navigation}){
 
   //Mostrar a altura atual da tela
   //console.log(Dimensions.get("window").height)
+  const [nomeUsuario, setNomeUsuario] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://192.168.51.166:8080/parintinsexplore/signin.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nomeUsuario,
+          senha,
+        }),
+      });
+
+      const result = await response.text();
+      console.log(result)
+      if (result == 'Sucessfull') {
+        navigation.navigate('Home')
+      } else {
+        Alert.alert('Erro', 'Usuário ou senha incorretas');
+      }
+    } catch (error) {
+      console.error('Erro ao tentar fazer login:', error);
+      Alert.alert('Erro', 'Verifique sua conexão');
+    }
+  };
+  
 
   return(
     <View style={styles.container}>     
@@ -37,15 +67,18 @@ export default function Login({navigation}){
             <TextInput
               placeholder="Ex: usuario123"
               style={styles.input}
-              secureTextEntry={true}
+              value={nomeUsuario}
+              onChangeText={setNomeUsuario}
             />
             <Text style={styles.textsenha}>Senha</Text>
             <TextInput
               placeholder="*************"
               style={styles.input}
               secureTextEntry={true}
+              value={senha}
+              onChangeText={setSenha}
             />
-            <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
+            <TouchableOpacity onPress={()=>{handleLogin()}}>
               <View style={{alignItems: 'center' , marginTop:40}}>
                 <Button text="Entrar" />
               </View>
@@ -107,3 +140,4 @@ const styles = StyleSheet.create({
         paddingLeft:14
       }
 })
+

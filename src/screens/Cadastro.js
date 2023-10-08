@@ -15,10 +15,14 @@ export default function Cad({ navigation, route }) {
   const [isAvailable, setIsAvailable] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [loadingRequest, setLoadingRequest] = useState(false);
+
   const checkUsernameAvailability = async (nomeUsuario) => {
     setLoading(true);
     try {
-      const response = await fetch('http://192.168.51.166:8080/parintinsexplore/verifyuser.php', {
+      const url = 'http://192.168.51.166:8080/parintinsexplore/verifyuser.php';
+  
+      const requestPromise = fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,20 +30,30 @@ export default function Cad({ navigation, route }) {
         body: JSON.stringify({
           nome_usuario: nomeUsuario,
         }),
+      })
+      .then(response => response.json());
+  
+      const timeoutPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject(new Error('Tempo de requisição excedido'));
+        }, 15000); // 15 segundos de timeout
       });
-
-      if (!response.ok) {
+  
+      const data = await Promise.race([requestPromise, timeoutPromise]);
+      
+      if (data && data.disponivel !== undefined) {
+        setIsAvailable(data.disponivel);
+      } else {
         throw new Error('Erro ao verificar a disponibilidade do nome de usuário');
       }
-
-      const data = await response.json();
-      setIsAvailable(data.disponivel);
     } catch (error) {
-      console.error(error.message);
+      console.error('Erro ao verificar a disponibilidade do nome de usuário:', error.message);
+      setIsAvailable(false);
     } finally {
       setLoading(false);
     }
   };
+  
 
   React.useEffect(() => {
     const debounceTimeout = setTimeout(() => {
@@ -71,7 +85,10 @@ export default function Cad({ navigation, route }) {
   }, [route.params?.pergunta]);
 
   const handleCadastro = () => {
-    fetch('http://192.168.51.166:8080/parintinsexplore/signup.php', {
+    setLoadingRequest(true)
+    const url = 'http://192.168.51.166:8080/parintinsexplore/signup.php';
+    
+    const requestPromise = fetch(url, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -85,23 +102,35 @@ export default function Cad({ navigation, route }) {
         resposta
       }),
     })
-      .then(response => response.json())
+    .then(response => response.json());
+  
+    const timeoutPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(new Error('Tempo de requisição excedido. Cheque sua internet'));
+        setLoadingRequest(false);
+      }, 15000); // 15 segundos de timeout
+    });
+  
+    Promise.race([requestPromise, timeoutPromise])
       .then(data => {
-        console.log(data)
+        console.log(data);
         Alert.alert('Sucesso', 'Seu cadastro foi concluído, agora faça seu login');
-        setNome('')
-        setNomeUsuario('')
-        setSenha('')
-        setSenhaConf('')
-        setPergunta('')
-        setResposta('')
-        navigation.navigate('login')
+        setNome('');
+        setNomeUsuario('');
+        setSenha('');
+        setSenhaConf('');
+        setPergunta('');
+        setResposta('');
+        setLoadingRequest(false);
+        navigation.navigate('login');
       })
-      .catch(error => console.error('Erro ao cadastrar:', error));
+      .catch(error => {
+        console.error('Erro ao cadastrar:', error.message);
+        Alert.alert('Erro', 'Ocorreu um erro ao cadastrar: ' + error.message);
+        setLoadingRequest(false);
+      });
   };
-
-
-
+  
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -170,14 +199,16 @@ export default function Cad({ navigation, route }) {
               <Text style={styles.texto}>Pergunta de recuperação:</Text>
               <TouchableOpacity onPress={() => { navigation.navigate('ModalScreen') }}>
                 <View style={styles.openModal}>
-                  <Text style={{ color: '#777' }}>Selecione aqui</Text>
+                  <Text style={{ color: '#777' }}>{!route.params?.pergunta ? 'Selecione aqui' : route.params?.pergunta}</Text>
                   <AntDesign name='caretdown' color='#000' size={20} ></AntDesign>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}
-                onPress={() => { handleCadastro() }}
+              <TouchableOpacity 
+                style={styles.button}
+                disabled={loadingRequest}
+                onPress={() => { handleCadastro(); }}
               >
-                <Button text="Inscrever-se" />
+                <Button text="Inscrever-se" loadingfeedback={loadingRequest}/>
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text style={styles.follow}>Continuar sem conta </Text>
