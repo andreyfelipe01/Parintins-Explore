@@ -4,7 +4,10 @@ import { LinearGradient } from "expo-linear-gradient";
 export default function SplashBemvindo ({navigation}){
   //Função setTimeout execulta uma operação depois de um
   //dado tempo (em milisegundo)
-  setTimeout(()=>{navigation.navigate('home')},2000)
+  setTimeout(()=>{
+    navigation.navigate({
+    name: 'home',
+  });},2000)
     return(
       <View style={styles.container}>
       <LinearGradient 

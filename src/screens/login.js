@@ -14,7 +14,7 @@ export default function Login({navigation}){
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.51.166:8080/parintinsexplore/signin.php', {
+      const response = await fetch('http://192.168.57.166:8080/parintinsexplore/signin.php', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
