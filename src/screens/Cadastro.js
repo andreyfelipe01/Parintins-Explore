@@ -3,6 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView,
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign, FontAwesome } from 'react-native-vector-icons'
 import Button from '../components/Button';
+
+
+import { checkUsernameAvailability } from '../api/CheckUserAva';
+import { signUp } from '../api/SignUp';
+
 export default function Cad({ navigation, route }) {
 
   const [nome, setNome] = useState('');
@@ -16,57 +21,20 @@ export default function Cad({ navigation, route }) {
   const [loading, setLoading] = useState(false);
 
   const [loadingRequest, setLoadingRequest] = useState(false);
-
-  const checkUsernameAvailability = async (nomeUsuario) => {
-    setLoading(true);
-    try {
-      const url = 'http://192.168.51.166:8080/parintinsexplore/verifyuser.php';
-  
-      const requestPromise = fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          nome_usuario: nomeUsuario,
-        }),
-      })
-      .then(response => response.json());
-  
-      const timeoutPromise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          reject(new Error('Tempo de requisição excedido'));
-        }, 15000); // 15 segundos de timeout
-      });
-  
-      const data = await Promise.race([requestPromise, timeoutPromise]);
-      
-      if (data && data.disponivel !== undefined) {
-        setIsAvailable(data.disponivel);
-      } else {
-        throw new Error('Erro ao verificar a disponibilidade do nome de usuário');
-      }
-    } catch (error) {
-      console.error('Erro ao verificar a disponibilidade do nome de usuário:', error.message);
-      setIsAvailable(false);
-    } finally {
-      setLoading(false);
-    }
-  };
   
 
   React.useEffect(() => {
     const debounceTimeout = setTimeout(() => {
         if (nomeUsuario !== '') {
-            if (nomeUsuario.length <= 4){
+            if (nomeUsuario.length <= 3){
               setIsAvailable(false)
               return
             }
-            checkUsernameAvailability(nomeUsuario);
+            checkUsernameAvailability(nomeUsuario, setIsAvailable, setLoading);
         } else {
             setIsAvailable(null);
         }
-    }, 500); // Aguarde 500ms após a última interação do usuário
+    }, 500); // Aqui fica 0.5 segundos depois última letra digitada
 
     return () => {
         // Limpe o timeout se o usuário ainda está digitando
@@ -85,50 +53,35 @@ export default function Cad({ navigation, route }) {
   }, [route.params?.pergunta]);
 
   const handleCadastro = () => {
-    setLoadingRequest(true)
-    const url = 'http://192.168.51.166:8080/parintinsexplore/signup.php';
-    
-    const requestPromise = fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nome,
-        nomeUsuario,
-        senha,
-        pergunta,
-        resposta
-      }),
-    })
-    .then(response => response.json());
-  
-    const timeoutPromise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject(new Error('Tempo de requisição excedido. Cheque sua internet'));
-        setLoadingRequest(false);
-      }, 15000); // 15 segundos de timeout
-    });
-  
-    Promise.race([requestPromise, timeoutPromise])
-      .then(data => {
-        console.log(data);
-        Alert.alert('Sucesso', 'Seu cadastro foi concluído, agora faça seu login');
-        setNome('');
-        setNomeUsuario('');
-        setSenha('');
-        setSenhaConf('');
-        setPergunta('');
-        setResposta('');
-        setLoadingRequest(false);
-        navigation.navigate('login');
-      })
-      .catch(error => {
-        console.error('Erro ao cadastrar:', error.message);
-        Alert.alert('Erro', 'Ocorreu um erro ao cadastrar: ' + error.message);
-        setLoadingRequest(false);
-      });
+    if (!nome){
+      Alert.alert('Atenção!', 'Preencha o nome')
+      return
+    }
+    if (!nomeUsuario || !isAvailable || loading){
+      Alert.alert('Atenção!', 'Verifique o nome de usuário')
+      return
+    }
+    if (!senha){
+      Alert.alert('Atenção!', 'Verifique sua senha')
+      return
+    }
+    if (!senhaConf){
+      Alert.alert('Atenção!', 'Verifique sua senha')
+      return
+    }
+    if (senha != senhaConf){
+      Alert.alert('Atenção!', 'As senhas não estão iguais')
+      return
+    }
+    if (!pergunta){
+      Alert.alert('Atenção!', 'Preencha o formulário de pergunta de recuperação')
+      return
+    }
+    signUp(
+      nome, nomeUsuario, senha, pergunta, resposta,
+      setLoadingRequest, navigation,
+      setNome, setNomeUsuario, setSenha, setSenhaConf, setPergunta, setResposta
+    )
   };
   
   return (

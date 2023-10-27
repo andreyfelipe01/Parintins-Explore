@@ -18,9 +18,9 @@ export default function ModalScreen({ navigation }) {
 
   //Criação de uma array de perguntas para ser mapeado
   const questions = [
-    'Qual é o nome do seu animal de estimação?',
-    'Qual é o nome da sua cidade natal?',
-    'Qual é o nome do seu melhor amigo de infância?',
+    'Qual o nome do seu animal domestico?',
+    'Qual o nome da sua cidade natal?',
+    'Qual o nome do seu melhor amigo?',
   ];
 
   return (
@@ -61,16 +61,20 @@ export default function ModalScreen({ navigation }) {
           value={resposta}
           onChangeText={setResposta}
         />
-        <TouchableOpacity onPress={() => {
-          navigation.navigate({
-            name: 'cadastro',
-            params: { pergunta: pergunta, resposta: resposta },
-            merge: true,
-          });
-        }}>
-          {/*Modifiquei o botão para atender algumas necessidades (se puder olhar na pasta de componentes onde está o botão, verá algumas modificações no estilo. Acabei utilizando um operador ternário tratando os parâmetros passados aqui no botão abaixo, só pra agilizar)*/}
-          <Button text="Salvar" color='#000' />
-        </TouchableOpacity>
+
+        <View style={{alignItems: 'center', paddingVertical: 10}}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate({
+              name: 'cadastro',
+              params: { pergunta: pergunta, resposta: resposta },
+              merge: true,
+            });
+          }}>
+            {/*Modifiquei o botão para atender algumas necessidades (se puder olhar na pasta de componentes onde está o botão, verá algumas modificações no estilo. Acabei utilizando um operador ternário tratando os parâmetros passados aqui no botão abaixo, só pra agilizar)*/}
+            <Button text="Salvar" color='#000' backgroundColor={'rgba(0, 200, 0, 0.6)'}/>
+          </TouchableOpacity>
+        </View>
+
       </View>
     </View>
   );
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerForm: {
-    width: 250,
+    width: '96%',
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     padding: 15,
     borderRadius: 15
@@ -116,8 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    height: 350,
-    width: 300,
+    height: 250,
+    width: '90%',
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 10,
     justifyContent: 'center'
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
   response: {
     backgroundColor: 'white',
     borderRadius: 50,
-    padding: 7,
+    padding: 12,
     marginHorizontal: 5,
     marginBottom: 10,
     borderColor: '#FFF',

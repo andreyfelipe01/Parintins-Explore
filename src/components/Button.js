@@ -20,7 +20,11 @@ export default function Button({text, loadingfeedback, color, backgroundColor}) 
 
   return (
     <View style={styles.container}>
-      {!loadingfeedback ? <Text style={[styles.text]}>{text}</Text> : <ActivityIndicator style={{margin: 'auto'}}/>}
+      {
+        !loadingfeedback 
+        ? <Text style={[styles.text]}>{text}</Text> 
+        : <ActivityIndicator style={{margin: 'auto'}}/>
+      }
     </View>
   );
 }

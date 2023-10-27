@@ -2,44 +2,18 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView, Dimensions, Alert} from "react-native";
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
-import { Entypo } from 'react-native-vector-icons';
+import { checkUsernameRegistry } from "../api/CheckUserAva";
+export default function UsuarioEsqSenha({navigation}){
 
-export default function Login({navigation}){
-
-  //Mostrar a altura atual da tela
-  //console.log(Dimensions.get("window").height)
   const [nomeUsuario, setNomeUsuario] = useState('');
-  const [senha, setSenha] = useState('');
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
-
-  const handleLogin = async () => {
-    try {
-      const response = await fetch('http://192.168.51.166:8080/parintinsexplore/signin.php', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          nomeUsuario,
-          senha,
-        }),
-      });
-
-      const result = await response.text();
-      console.log(result)
-      if (result == 'Sucessfull') {
-        navigation.navigate('Home')
-      } else {
-        Alert.alert('Erro', 'Usuário ou senha incorretas');
-      }
-    } catch (error) {
-      console.error('Erro ao tentar fazer login:', error);
-      Alert.alert('Erro', 'Verifique sua conexão');
+  const [loading, setLoading] = useState(false);
+  function VerifyUser(){
+    if (!nomeUsuario){
+        Alert.alert('Atenção', 'Insira o seu usuário')
+        return
     }
-  };
-  
-
+    checkUsernameRegistry(nomeUsuario, setLoading, navigation)
+  }
   return(
     <View style={styles.container}>     
       <LinearGradient 
@@ -60,13 +34,13 @@ export default function Login({navigation}){
               />
             </View>
             <View>
-                <Text style={styles.textNameApp}>Login</Text>
+                <Text style={styles.textNameApp}>Recuperação</Text>
             </View>
           </View>
 
           <View style={styles.fundotransparente}>
 
-            <Text style={styles.textsenha}>Nome de Usuario</Text>
+            <Text style={styles.textsenha}>Insira seu nome de usuário</Text>
             <TextInput
               placeholder="Ex: usuario123"
               style={styles.input}
@@ -74,27 +48,13 @@ export default function Login({navigation}){
               onChangeText={setNomeUsuario}
             />
 
-            <Text style={styles.textsenha}>Senha</Text>
-            <View style={[styles.input, {flexDirection: "row", justifyContent: "space-between", alignItems: "center"}]}>
-              <TextInput
-                placeholder="*************"
-                secureTextEntry={secureTextEntry}
-                value={senha}
-                onChangeText={setSenha}
-                style={{width: '83%'}}
-              />
-              <TouchableOpacity onPress={()=>{setSecureTextEntry(!secureTextEntry)}} style={{width: 35}}>
-                <Entypo name={secureTextEntry ? 'eye' : 'eye-with-line'} size={25} color='#555'/>
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity onPress={()=>{navigation.navigate('usuarioesqsenha')}}>
-              <Text style={styles.follow}>Esqueci minha senha</Text>
+            <TouchableOpacity>
+              <Text style={styles.follow}>Esqueci o nome de usuário</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{handleLogin()}}>
+            <TouchableOpacity onPress={()=>{VerifyUser()}}>
               <View style={{alignItems: 'center' , marginTop:30}}>
-                <Button text="Entrar" />
+                <Button text="Verificar" loadingfeedback={loading}/>
               </View>
             </TouchableOpacity>
 

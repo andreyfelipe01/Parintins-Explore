@@ -10,6 +10,9 @@ import Welcome from '../screens/Welcome';
 import Cadastro from '../screens/Cadastro';
 import ModalScreen from '../components/ModalScreen';
 
+import UsuarioEsqSenha from '../screens/UsuarioEsqSenha';
+import PerguntaEsqSenha from '../screens/PergEsqSenha';
+
 import TelaHome from '../screens/Home';
 import Map from '../screens/Map'
 import QrCode from '../screens/QRCode';
@@ -52,6 +55,14 @@ function RouteCadastro() {
         <Stack.Screen 
             name='login'
             component={Login}
+        />
+        <Stack.Screen 
+            name='usuarioesqsenha'
+            component={UsuarioEsqSenha}
+        />
+        <Stack.Screen 
+            name='pergesqsenha'
+            component={PerguntaEsqSenha}
         />
       </Stack.Navigator>
     );
