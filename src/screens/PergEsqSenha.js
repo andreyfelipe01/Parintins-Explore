@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
 import { getQuestionRecovery } from "../api/GetQuestionRecovery";
+import { checkAnswer } from "../api/CheckResponseRecovery";
 
 export default function PerguntaEsqSenha({navigation, route}){
 
   const [pergunta, setPergunta] = useState('');
   const [resposta, setResposta] = useState('');
+  const [loadingRequest, setLoadingRequest] = useState(false);
   
   useEffect(() => {
     const onfocusscreen = navigation.addListener('focus', () => {
@@ -17,6 +19,10 @@ export default function PerguntaEsqSenha({navigation, route}){
     onfocusscreen;
   }, [navigation]);
 
+  function handleAnswer(){
+    const nomeUsuario = route.params?.user;
+    checkAnswer(nomeUsuario, resposta, navigation, setLoadingRequest)
+  }
   return(
     <View style={styles.container}>     
       <LinearGradient 
@@ -55,9 +61,9 @@ export default function PerguntaEsqSenha({navigation, route}){
               <Text style={styles.follow}>Esqueci a resposta</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{}}>
+            <TouchableOpacity onPress={()=>{handleAnswer()}}>
               <View style={{alignItems: 'center' , marginTop:30}}>
-                <Button text="Recuperar" />
+                <Button text="Recuperar" loadingfeedback={loadingRequest}/>
               </View>
             </TouchableOpacity>
 

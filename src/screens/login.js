@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
 import { Entypo } from 'react-native-vector-icons';
+import { signIn } from "../api/SignIn";
 
 export default function Login({navigation}){
 
@@ -11,34 +12,11 @@ export default function Login({navigation}){
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [loadingRequest, setLoadingRequest] = useState(false);
 
-  const handleLogin = async () => {
-    try {
-      const response = await fetch('http://192.168.57.166:8080/parintinsexplore/signin.php', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          nomeUsuario,
-          senha,
-        }),
-      });
-
-      const result = await response.text();
-      console.log(result)
-      if (result == 'Sucessfull') {
-        navigation.navigate('Home')
-      } else {
-        Alert.alert('Erro', 'Usuário ou senha incorretas');
-      }
-    } catch (error) {
-      console.error('Erro ao tentar fazer login:', error);
-      Alert.alert('Erro', 'Verifique sua conexão');
-    }
-  };
-  
+  function handleLogin(){
+    signIn(nomeUsuario, senha, navigation, setLoadingRequest);
+  }
 
   return(
     <View style={styles.container}>     
@@ -94,7 +72,7 @@ export default function Login({navigation}){
 
             <TouchableOpacity onPress={()=>{handleLogin()}}>
               <View style={{alignItems: 'center' , marginTop:30}}>
-                <Button text="Entrar" />
+                <Button text="Entrar" loadingfeedback={loadingRequest}/>
               </View>
             </TouchableOpacity>
 

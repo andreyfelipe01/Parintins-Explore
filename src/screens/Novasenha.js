@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView, Dimensions} from "react-native";
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
+import { setPassword } from "../api/SetPasswordRecovery";
 
-export default function Novas(){
+export default function NovaSenha({navigation, route}){
 
-  //Mostrar a altura atual da tela
-  //console.log(Dimensions.get("window").height)
+
+  const nomeUsuario = route.params?.user;
+  const [senha, setSenha] = useState('');
+  const [confSenha, setConfSenha] = useState('');
+  const [loadingRequest, setLoadingRequest] = useState(false);
+  
+  function handlePassword(){
+    setPassword(nomeUsuario, senha, confSenha, navigation, setLoadingRequest)
+  }
 
   return(
     <View style={styles.container}>     
@@ -38,15 +46,19 @@ export default function Novas(){
             <TextInput
               style={styles.input}
               secureTextEntry={true}
+              value={senha}
+              onChangeText={setSenha}
             />
             <Text style={styles.textsenha}>Confirmar senha</Text>
             <TextInput
               style={styles.input}
               secureTextEntry={true}
+              value={confSenha}
+              onChangeText={setConfSenha}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handlePassword}>
               <View style={{alignItems: 'center' , marginTop:40}}>
-                <Button text="Recuperar Conta" />
+                <Button text="Recuperar Conta" loadingfeedback={loadingRequest}/>
               </View>
             </TouchableOpacity>
           </View>
