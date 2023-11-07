@@ -20,6 +20,7 @@ import Dicionario from '../screens/Biblioteca';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import CheckIn from '../screens/Checkin';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -136,8 +137,8 @@ export function Routes () {
                 }}
             />
             <Tab.Screen
-                name="Home5"
-                component={TelaHome}
+                name="checkin"
+                component={CheckIn}
                 options={{
                     
                     headerShown: false,

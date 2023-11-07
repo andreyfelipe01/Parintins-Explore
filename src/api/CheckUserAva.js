@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 export const checkUsernameAvailability = async (nomeUsuario, setIsAvailable, setLoading) => {
     setLoading(true);
     try {
-      const url = 'http://192.168.57.166:8080/parintinsexplore/verifyuser.php';
+      const url = 'http://192.168.98.166:8080/parintinsexplore/verifyuser.php';
   
       const requestPromise = fetch(url, {
         method: 'POST',

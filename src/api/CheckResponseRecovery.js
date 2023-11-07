@@ -6,7 +6,7 @@ export const checkAnswer = (nomeUsuario, resposta, navigation, setLoadingRequest
         return
     }
     setLoadingRequest(true)
-    const url = 'http://192.168.57.166:8080/parintinsexplore/verifyanswer.php';
+    const url = 'http://192.168.98.166:8080/parintinsexplore/verifyanswer.php';
     
     const requestPromise = fetch(url, {
       method: 'POST',

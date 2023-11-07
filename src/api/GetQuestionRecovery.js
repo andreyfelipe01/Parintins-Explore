@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 
 export const getQuestionRecovery = (nomeUsuario, setPergunta) => {
     //setLoadingRequest(true)
-    const url = 'http://192.168.57.166:8080/parintinsexplore/getquestionrecovery.php';
+    const url = 'http://192.168.98.166:8080/parintinsexplore/getquestionrecovery.php';
     
     const requestPromise = fetch(url, {
       method: 'POST',

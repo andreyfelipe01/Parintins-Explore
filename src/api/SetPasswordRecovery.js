@@ -11,7 +11,7 @@ export const setPassword = (nomeUsuario, senha, confSenha, navigation, setLoadin
     }
     
     setLoadingRequest(true)
-    const url = 'http://192.168.57.166:8080/parintinsexplore/newpassword.php';
+    const url = 'http://192.168.98.166:8080/parintinsexplore/newpassword.php';
     
     const requestPromise = fetch(url, {
       method: 'POST',

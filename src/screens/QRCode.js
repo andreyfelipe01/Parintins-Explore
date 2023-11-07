@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Button, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Camera } from 'expo-camera';
 
@@ -45,13 +45,20 @@ export default function TelaQrCode() {
   return (
     <View style={styles.container}>
       {renderCamera()}
-     {/* <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.button}
         onPress={() => setScanned(false)}
         disabled={scanned}
       >
         <Text style={styles.buttonText}></Text>
   </TouchableOpacity> */}
+      <View style={{height:'100%', width: '100%', position: 'absolute', alignItems: 'center', justifyContent: 'center'}}>
+        <Text style={{fontSize: 20, color: '#FFF', fontWeight: 'bold'}}>Escaneie o QR Code aqui</Text>
+        <Image
+          source={require('../icon/qrcode.png')}
+          style={{height: 300, width: 300 }}
+        />
+      </View>
     </View>
   );
 }
