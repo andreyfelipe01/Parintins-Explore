@@ -17,11 +17,13 @@ import TelaHome from '../screens/Home';
 import Map from '../screens/Map'
 import QrCode from '../screens/QRCode';
 import Dicionario from '../screens/Biblioteca';
+import CheckIn from '../screens/Checkin';
+import Profile from '../screens/Profile';
+
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import CheckIn from '../screens/Checkin';
-import Profile from '../screens/Profile';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

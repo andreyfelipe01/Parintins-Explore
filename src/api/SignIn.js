@@ -10,7 +10,7 @@ export const signIn = (nomeUsuario, senha, navigation, setLoadingRequest) => {
         return
     }
     setLoadingRequest(true)
-    const url = 'http://192.168.98.166:8080/parintinsexplore/signin.php';
+    const url = 'http://192.168.144.166:8080/parintinsexplore/signin.php';
     
     const requestPromise = fetch(url, {
       method: 'POST',

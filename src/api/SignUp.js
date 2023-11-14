@@ -20,7 +20,7 @@ export const signUp = (
 
     ) => {
     setLoadingRequest(true)
-    const url = 'http://192.168.98.166:8080/parintinsexplore/signup.php';
+    const url = 'http://192.168.144.166:8080/parintinsexplore/signup.php';
     
     const requestPromise = fetch(url, {
       method: 'POST',

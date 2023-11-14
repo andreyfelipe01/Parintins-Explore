@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput,  Image, ScrollView, Dimensions, Alert} from "react-native";
 import Button from '../components/Button'
 import { LinearGradient } from 'expo-linear-gradient';
 import { Entypo } from 'react-native-vector-icons';
 import { signIn } from "../api/SignIn";
 
+import AuthContext from "../contexts/AuthContext";
+
 export default function Login({navigation}){
+
+  const { isLoggedIn, setIsLoggedIn, isFirstAccess, setIsFirstAccess } = useContext(AuthContext);
 
   //Mostrar a altura atual da tela
   //console.log(Dimensions.get("window").height)
@@ -70,7 +74,10 @@ export default function Login({navigation}){
               <Text style={styles.follow}>Esqueci minha senha</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{handleLogin()}}>
+            <TouchableOpacity onPress={()=>{
+              console.log(isLoggedIn);
+              
+              }}>
               <View style={{alignItems: 'center' , marginTop:30}}>
                 <Button text="Entrar" loadingfeedback={loadingRequest}/>
               </View>
