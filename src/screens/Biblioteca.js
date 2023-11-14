@@ -13,36 +13,38 @@ const Biblioteca = () => {
     const filteredData = Data.filter(item => item.title.toLowerCase().includes(search.toLowerCase()));
 
     return (
-        <SafeAreaView style={{backgroundColor: 'rgb(255, 255, 255)'}}>
-            <View style={styles.pesquisa}>
-                <TextInput
-                    placeholder='Pesquisar no dicionário'
-                    value={search}
-                    onChangeText={text => setSearch(text)}
-                    style={{width: '100%'}}
+        <SafeAreaView>
+            <View style={{ backgroundColor: 'rgb(255, 255, 255)', height: '100%' }}>
+                <View style={styles.pesquisa}>
+                    <TextInput
+                        placeholder='Pesquisar no dicionário'
+                        value={search}
+                        onChangeText={text => setSearch(text)}
+                        style={{ width: '100%' }}
+                    />
+                </View>
+                <FlatList
+                    data={filteredData}
+                    extraData={Data}
+                    style={{ height: '92%' }}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.geral}>
+                            <View style={styles.estilo}>
+                                <Text style={styles.titulo}>{item.title}</Text>
+                                <Text style={styles.description}>{item.description}</Text>
+                            </View>
+
+                        </View>
+                    )
+                    }
                 />
             </View>
-            <FlatList
-                data={filteredData}
-                extraData={Data}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <View style ={styles.geral}>
-                        <View style={styles.estilo}> 
-                        <Text style={styles.titulo}>{item.title}</Text>
-                        <Text style={styles.description}>{item.description}</Text>
-                        </View>
-
-                    </View>
-                )
-                }
-            />
-            
         </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
-    pesquisa:{
+    pesquisa: {
         backgroundColor: 'rgb(255, 255, 255)',
         margin: 5,
         padding: 7,
@@ -51,28 +53,28 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
 
     },
-    titulo:{
+    titulo: {
         fontWeight: 'bold',
         marginBottom: 4,
         fontSize: 16,
-        
+
 
     },
     description: {
-        fontSize : 15,
+        fontSize: 15,
     },
-    geral:{
+    geral: {
         padding: 10,
         backgroundColor: '#FFF'
     },
-    estilo:{
+    estilo: {
         padding: 6,
         backgroundColor: "#fff6ff",
         borderRadius: 12,
     },
-   
-  
-  
+
+
+
 })
 
 

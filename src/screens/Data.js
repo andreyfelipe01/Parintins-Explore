@@ -2,7 +2,7 @@ export const Data  = [
     {
         id: '1',
         title: 'Alumiar',
-        description: 'iluminar algo. “Alumia aqui pra mim”'
+        description: 'Iluminar algo. “Alumia aqui pra mim”'
     },
     {
         id: '2',
@@ -12,12 +12,12 @@ export const Data  = [
     {
         id: '3',
         title: 'Arremedar',
-        description: 'caçoar, imitar em modo engraçado. “tu já gosta de arremedar os outros”'
+        description: 'Caçoar, imitar em modo engraçado. “tu já gosta de arremedar os outros”'
     },
     {
         id: '4',
         title: 'Baqueado/a',
-        description: 'cansado ou doente ao ponto de não conseguir reagir. “Cheguei baqueado do trabalho”'
+        description: 'Cansado ou doente ao ponto de não conseguir reagir. “Cheguei baqueado do trabalho”'
     },
     {
         id: '5',
@@ -32,7 +32,7 @@ export const Data  = [
     {
         id: '7',
         title: 'Borimbora',
-        description: 'vamos embora.  “Tá chato aqui, borimbora”'
+        description: 'Vamos embora.  “Tá chato aqui, borimbora”'
     },
     {
         id: '8',
@@ -42,32 +42,32 @@ export const Data  = [
     {
         id: '9',
         title: 'Brocado',
-        description: 'usado para dizer que está com muita fome.  “Tô brocado de fome”        '
+        description: 'Usado para dizer que está com muita fome.  “Tô brocado de fome”        '
     },
     {
         id: '10',
         title: 'Chibata',
-        description: 'bom ou legal. “O trabalho do fulano ficou chibata”'
+        description: 'Bom ou legal. “O trabalho do fulano ficou chibata”'
     },
     {
         id: '11',
         title: 'Esculhambar',
-        description: 'quando algo quebra, deixa de funcionar. “O computador esculhambou”'
+        description: 'Quando algo quebra, deixa de funcionar. “O computador esculhambou”'
     },
     {
         id: '12',
         title: 'Galeroso',
-        description: 'ligado a uma organização criminosa, mau elemento. “ aquele ali deve ser galeroso”'
+        description: 'Ligado a uma organização criminosa, mau elemento. “ aquele ali deve ser galeroso”'
     },
     {
         id:'13',
         title: 'Liso',
-        description: 'sem dinheiro. “Não vou para festa, porque eu estou liso”',
+        description: 'Sem dinheiro. “Não vou para festa, porque eu estou liso”',
     },
     {
         id:'14',
         title: 'Malinar',
-        description: 'judiar de alguém, encher a paciência. “Meu irmão é muito malino”.',
+        description: 'Judiar de alguém, encher a paciência. “Meu irmão é muito malino”.',
     },
     {
         id:'15',
@@ -77,12 +77,12 @@ export const Data  = [
     {
         id:'16',
         title: 'Maceta',
-        description: 'algo grande. “aquela casa é maceta” ',
+        description: 'Algo grande. “aquela casa é maceta” ',
     },
     {
         id:'17',
         title: 'Mana',
-        description: 'substantivo feminino: forma de chamar. “Mana eu não estava em casa”.',
+        description: 'Substantivo feminino: forma de chamar. “Mana eu não estava em casa”.',
     },
     {
         id:'18',
@@ -92,7 +92,7 @@ export const Data  = [
     {
         id:'19',
         title: 'Pavulagem',
-        description: 'orgulho próprio. “O fulano está com pavulagem”.',
+        description: 'Orgulho próprio. “O fulano está com pavulagem”.',
     },
     {
         id:'20',
@@ -102,12 +102,12 @@ export const Data  = [
     {
         id:'21',
         title: 'Pelejar',
-        description: 'fazer algo com esforço. “pra chegar onde cheguei, tive que pelejar muito”',
+        description: 'Fazer algo com esforço. “pra chegar onde cheguei, tive que pelejar muito”',
     },
     {
         id:'22',
         title: 'Péra',
-        description: 'esperar, parar. “Péra ai, eu já volto”',
+        description: 'Esperar, parar. “Péra ai, eu já volto”',
     },
     {
         id:'23',

@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CheckIn = () => {
 
-    const [modal, setModal] = useState(true);
+    const [modal, setModal] = useState(false);
 
     const Items = ({ local, image, description }) => {
         return (

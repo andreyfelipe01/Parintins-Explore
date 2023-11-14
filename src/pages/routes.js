@@ -21,6 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import CheckIn from '../screens/Checkin';
+import Profile from '../screens/Profile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -168,7 +169,7 @@ export function Routes () {
             />
             <Tab.Screen
                 name="Home3"
-                component={TelaHome}
+                component={Profile}
                 options={{
                     
                     headerShown: false,

@@ -1,168 +1,255 @@
-import React, {useEffect, useState} from "react";
-import { Text , View , TouchableOpacity, TextInput, Image ,StyleSheet } from "react-native";
+import React, {
+    useEffect,
+    useState
+} from "react";
+
+import {
+    Text,
+    View,
+    TouchableOpacity,
+    TextInput,
+    Image,
+    StyleSheet,
+    ScrollView,
+    FlatList
+} from "react-native";
+
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function TelaH({navigation}){
-      
-    return(
-        <View style={styles.container}>
-            <View style={styles.pesquisa}>
-                <View style={styles.sectionStyle}>
-                    <View style={styles.input}> 
-                        <TextInput 
-                            style={{fontWeight:'bold'}}
-                            placeholderTextColor={'#000'}
-                            placeholder="Pesquisar"
+import { locations } from "../data/Locations.js";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+export default function TelaH({ navigation }) {
+
+    const maxRating = [1, 2, 3, 4, 5];
+    const [itemRatings, setItemRatings] = useState({});
+
+    function ItemLocal({ item }) {
+
+        const itemRating = itemRatings[item.id] || 0;
+
+        return (
+            <View style={styles.containerRenderItem}>
+
+                <View style={styles.flexlocal}>
+                    <View style={{}}>
+                        <Image
+                            source={require("../icon/catedral.jpeg")}
+                            style={styles.imagerenderitem}
+                        />
+                        <Text style={styles.textrenderitem}>
+                            {item.name}
+                        </Text>
+                        <RatingBar item={item} rating={itemRating} setRating={setRating} />
+                    </View>
+
+                    <View style={styles.partgradbutton}>
+                        <LinearGradient
+                            style={styles.lineargradientri}
+                            colors={['#ff4142', '#c03c99', '#7b38fb']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                        />
+                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ color: 'white', fontWeight: 'bold' }}>Veja mais</Text>
+                            <Ionicons name="arrow-forward" size={18} color="white" />
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+            </View>
+        );
+    }
+
+    const RatingBar = ({ item, rating, setRating }) => {
+        return (
+            <View style={styles.ratingBarStyle}>
+                {maxRating.map((value, key) => {
+                    return (
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            key={value}
+                            onPress={() => setRating(item.id, value)}
+                        >
+                            <Image
+                                style={{ height: 16, width: 16, }}
+                                source={
+                                    value <= rating
+                                        ? require("../icon/star_filled.png")
+                                        : require("../icon/star_corner.png")
+                                }
+                            />
+                        </TouchableOpacity>
+                    );
+                })}
+            </View>
+        );
+    };
+
+    const setRating = (itemId, value) => {
+        setItemRatings((prevRatings) => ({
+            ...prevRatings,
+            [itemId]: value,
+        }));
+    };
+
+    return (
+        <SafeAreaView>
+            <View style={styles.container}>
+
+                <ScrollView>
+                    <View style={styles.pesquisa}>
+                        <View style={styles.sectionStyle}>
+                            <View style={styles.input}>
+                                <TextInput
+                                    style={{ fontWeight: 'bold' }}
+                                    placeholderTextColor={'#000'}
+                                    placeholder="Pesquisar"
+                                />
+                            </View>
+                            <View style={{ marginLeft: '90%', position: 'absolute' }}>
+                                <Ionicons name="search" size={24} color="#5e17eb" />
+                            </View>
+                        </View>
+                        <View style={{ borderRadius: 2, backgroundColor: '#5e17eb', padding: 6.9, }}>
+                            <TouchableOpacity>
+                                <Ionicons name="settings-sharp" size={24} color="white" />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.logoetext}>
+                        <View>
+                            <Image
+                                source={require('../icon/vaca.png')}
+                                style={styles.img}
+                            />
+                        </View>
+                        <View style={styles.caixacomlinearg}>
+                            <LinearGradient
+                                style={styles.linearGradient}
+                                colors={['#ff4142', '#c03c99', '#7b38fb']}
+                                start={{ x: 0, y: 1 }}
+                                end={{ x: 1, y: 1 }}
+                            />
+                            <Text style={{ color: '#fff', }}>Olá, seja bem-vindo(a) ao <Text style={{ fontWeight: 'bold' }}>Parintins Explorer !</Text></Text>
+                        </View>
+                    </View>
+                    <View style={styles.icones}>
+                        <View style={{ alignItems: 'center' }}>
+                            <TouchableOpacity>
+                                <LinearGradient
+                                    style={styles.linearGradientdosicon}
+                                    colors={['#ff4142', '#c03c99', '#7b38fb']}
+                                    start={{ x: 0, y: 1 }}
+                                    end={{ x: 1, y: 1 }}
+                                />
+                                <Ionicons style={styles.iconesgradient} name="restaurant" size={24} color="white" />
+                            </TouchableOpacity>
+                            <Text>Restaurantes</Text>
+                        </View>
+                        <View style={{ alignItems: 'center', }}>
+                            <TouchableOpacity>
+                                <LinearGradient
+                                    style={styles.linearGradientdosicon}
+                                    colors={['#ff4142', '#c03c99', '#7b38fb']}
+                                    start={{ x: 0, y: 1 }}
+                                    end={{ x: 1, y: 1 }}
+                                />
+                                <MaterialIcons style={styles.iconesgradient} name="hotel" size={24} color="white" />
+                            </TouchableOpacity>
+                            <Text>Hotéis</Text>
+                        </View>
+                        <View style={{ alignItems: 'center', }}>
+                            <TouchableOpacity>
+                                <LinearGradient
+                                    style={styles.linearGradientdosicon}
+                                    colors={['#ff4142', '#c03c99', '#7b38fb']}
+                                    start={{ x: 0, y: 1 }}
+                                    end={{ x: 1, y: 1 }}
+                                />
+                                <Ionicons style={styles.iconesgradient} name="cart" size={24} color="white" />
+                            </TouchableOpacity>
+                            <Text>Compras</Text>
+                        </View>
+                        <View style={{ alignItems: 'center', }}>
+                            <TouchableOpacity>
+                                <LinearGradient
+                                    style={styles.linearGradientdosicon}
+                                    colors={['#ff4142', '#c03c99', '#7b38fb']}
+                                    start={{ x: 0, y: 1 }}
+                                    end={{ x: 1, y: 1 }}
+                                />
+                                <Ionicons style={styles.iconesgradient} name="ellipsis-horizontal" size={24} color="white" />
+                            </TouchableOpacity>
+                            <Text>Outros</Text>
+                        </View>
+                    </View>
+                    <View style={styles.maisvisitados}>
+                        <View>
+                            <Text style={styles.textoemnegritoemeiog}>Mais visitados</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text>Veja mais</Text>
+                                <Ionicons name="arrow-forward" size={18} color="#454545" />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.icones2}>
+                        <View>
+                            <Text style={styles.textocaixa2}>catedral</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.textocaixa2}>mercado</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.textocaixa2}>canta galo</Text>
+                        </View>
+                    </View>
+                    <View style={{ paddingLeft: 5, marginTop: 20, height: 300 }}>
+                        <FlatList
+                            data={locations}
+                            keyExtractor={item => item.id}
+                            renderItem={ItemLocal}
+                            horizontal={true}
                         />
                     </View>
-                    <View style={{marginLeft:'90%', position:'absolute'}}>
-                        <Ionicons name="search" size={24} color="#5e17eb" />
-                    </View>
-                </View>
-                <View style={{borderRadius:2, backgroundColor:'#5e17eb', padding:6.9, }}>
-                    <TouchableOpacity>
-                        <Ionicons name="settings-sharp" size={24} color="white" />
-                    </TouchableOpacity>
-                </View>
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+
+                    <Text>Espaço</Text>
+                    <Text>Espaço</Text>
+                </ScrollView>
+                
             </View>
-            <View style={styles.logoetext}>
-                <View>
-                    <Image 
-                        source={require('../icon/vaca.png')}
-                        style={styles.img}
-                    />
-                </View>
-                <View style={styles.caixacomlinearg}>
-                <LinearGradient 
-                    style={styles.linearGradient}
-                    colors={['#ff4142', '#c03c99', '#7b38fb']} 
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 1 }}
-                />
-                <Text style={{color:'#fff',}}>Olá, seja bem-vindo(a) ao <Text style={{fontWeight:'bold'}}>Parintins Explorer !</Text></Text>
-                </View>
-            </View>
-            <View style={styles.icones}>
-                <View style={{alignItems:'center'}}>
-                    <TouchableOpacity>
-                        <LinearGradient 
-                            style={styles.linearGradientdosicon}
-                            colors={['#ff4142', '#c03c99', '#7b38fb']} 
-                            start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 1 }}
-                        />
-                            <Ionicons style={styles.iconesgradient} name="restaurant" size={24} color="white" />
-                    </TouchableOpacity>
-                    <Text>Restaurantes</Text>
-                </View>
-                <View style={{alignItems:'center',}}>
-                    <TouchableOpacity>
-                        <LinearGradient 
-                            style={styles.linearGradientdosicon}
-                            colors={['#ff4142', '#c03c99', '#7b38fb']} 
-                            start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 1 }}
-                        />
-                        <MaterialIcons style={styles.iconesgradient} name="hotel" size={24} color="white" />     
-                    </TouchableOpacity>
-                    <Text>Hotéis</Text>
-                </View>
-                <View style={{alignItems:'center',}}>
-                    <TouchableOpacity>
-                        <LinearGradient 
-                            style={styles.linearGradientdosicon}
-                            colors={['#ff4142', '#c03c99', '#7b38fb']} 
-                            start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 1 }}
-                        />
-                        <Ionicons style={styles.iconesgradient} name="cart" size={24} color="white" />
-                    </TouchableOpacity>
-                    <Text>Compras</Text>
-                </View>
-                <View style={{alignItems:'center',}}>
-                    <TouchableOpacity>
-                        <LinearGradient 
-                            style={styles.linearGradientdosicon}
-                            colors={['#ff4142', '#c03c99', '#7b38fb']} 
-                            start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 1 }}
-                        />
-                        <Ionicons style={styles.iconesgradient} name="ellipsis-horizontal" size={24} color="white" />
-                    </TouchableOpacity>
-                    <Text>Outros</Text>
-                </View>
-            </View>
-            <View style={styles.maisvisitados}>
-                <View>
-                    <Text style={styles.textoemnegritoemeiog}>Mais visitados</Text>
-                </View>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
-                    <TouchableOpacity style={{flexDirection:'row', alignItems:'center'}}>
-                        <Text>Veja mais</Text>
-                        <Ionicons name="arrow-forward" size={18} color="#454545" />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={styles.icones2}>
-                <View>
-                    <Text style={styles.textocaixa2}>catedral</Text>
-                </View>
-                <View>
-                    <Text style={styles.textocaixa2}>mercado</Text>
-                </View>
-                <View>
-                    <Text style={styles.textocaixa2}>canta galo</Text>
-                </View>
-            </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
-const RatingBar = () => { 
-    return ( 
-      <View style={styles.ratingBarStyle}> 
-        {maxRating.map((item, key) => { 
-          return ( 
-            <TouchableOpacity 
-              activeOpacity={0.7} 
-              key={item} 
-              onPress={() => setDefaultRating(item)}> 
-              <Image 
-                style={styles.starImageStyle} 
-                source={ 
-                  item <= defaultRating 
-                    ? require('../icon/star_filled.png') 
-                    : require('../icon/star_corner.png') 
-                } 
-              /> 
-            </TouchableOpacity> 
-          ); 
-        })} 
-      </View> 
-    ); 
-  };
-
-
-
-
 
 const styles = StyleSheet.create({
-    container:{
-        backgroundColor:'#f1f1f1',
-        width:'100%',
-        height:'100%',
-        alignItems:'center'
+    container: {
+        backgroundColor: '#f1f1f1',
     },
-    pesquisa:{
-        flexDirection:'row',
-        width:'100%',
-        height: 150,
-        alignItems:'center',
-        gap:20,
-        
+    pesquisa: {
+        flexDirection: 'row',
+        width: '100%',
+        height: 80,
+        alignItems: 'center',
+        gap: 20,
     },
     sectionStyle: {
         flexDirection: 'row',
@@ -171,88 +258,134 @@ const styles = StyleSheet.create({
         borderColor: '#5e17eb',
         borderRadius: 4,
         alignItems: 'center',
-        height:'25%', 
-        width:'65%',
-        marginLeft:'10%'       
+        height: 35,
+        width: '65%',
+        marginLeft: '10%'
     },
-    input:{
-        paddingLeft:7
+    input: {
+        paddingLeft: 5
     },
-    img:{
-        width:90,
-        height:110
+    img: {
+        width: 90,
+        height: 110
     },
-    logoetext:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        gap:10,
-        marginTop:'-7%'
+    logoetext: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10,
+        marginTop: '-7%'
     },
-    caixacomlinearg:{
-        width:'53%',
-        height:'34%',
-        alignItems:'center',
-        justifyContent:'center'
+    caixacomlinearg: {
+        width: '53%',
+        height: '34%',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    linearGradient:{
+    linearGradient: {
         position: 'absolute',
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
-        borderRadius:5,
+        borderRadius: 5,
     },
-    icones:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        gap:40,
-        marginTop:'8%'
+    icones: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 40,
+        marginTop: '8%'
     },
-    linearGradientdosicon:{
+    linearGradientdosicon: {
         position: 'absolute',
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
-        borderRadius:5, 
+        borderRadius: 5,
     },
-    iconesgradient:{
-        padding:9
+    iconesgradient: {
+        padding: 9
     },
-    maisvisitados:{
-        flexDirection:'row',
-        alignItems:'center',
-        marginTop:'8%',
+    maisvisitados: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: '8%',
         width: '100%',
         paddingHorizontal: 15,
         justifyContent: 'space-between'
     },
-    textoemnegritoemeiog:{
-        fontWeight:'bold',
-        fontSize:20,
-        color:'#000',   
+    textoemnegritoemeiog: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#000',
     },
-    textocaixa2:{
-        borderRadius:1,
-        borderColor:'#9e9e9e',
-        borderWidth:1,
-        padding:5,
-        fontSize:12,
-        color:'#9e9e9e',
-        textAlign:'center',
-        width:80
+    textocaixa2: {
+        borderRadius: 1,
+        borderColor: '#9e9e9e',
+        borderWidth: 1,
+        padding: 5,
+        fontSize: 12,
+        color: '#9e9e9e',
+        textAlign: 'center',
+        width: 80
     },
-    icones2:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        gap:40,
-        marginTop:'8%'
+    icones2: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 40,
+        marginTop: '8%'
     },
-    img2:{
-        width:120,
-        height:120
-    }
+    img2: {
+        width: 120,
+        height: 120
+    },
+    ratingBarStyle: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 5,
+    },
+    containerRenderItem: {
+        height: 225,
+        width: 170,
+        borderRadius: 15,
+        elevation: 10,
+        marginHorizontal: 10
+    },
+    flexlocal: {
+        backgroundColor: '#FFF',
+        height: '100%',
+        borderRadius: 15,
+        justifyContent: "space-between"
+    },
+    imagerenderitem: {
+        height: 120,
+        width: 170,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+    },
+    textrenderitem: {
+        textAlign: "center",
+        fontSize: 17,
+        fontWeight: "bold"
+    },
+    partgradbutton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: "center",
+        height: 30
+    },
+    lineargradientri: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+    },
+
 });
