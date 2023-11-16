@@ -29,13 +29,13 @@ export default function TelaH({ navigation }) {
 
     const maxRating = [1, 2, 3, 4, 5];
     const [itemRatings, setItemRatings] = useState({});
+
     const refscroll = useRef(null);
     
     const [array, setArray] = useState([]);
     const onViewableItemsChanged = (info) => {
         let itens = info.viewableItems
         setArray(itens)
-        console.log(itens)
       };
 
       const viewabilityConfigCallbackPairs = useRef([
@@ -131,25 +131,26 @@ export default function TelaH({ navigation }) {
         <SafeAreaView>
             <ScrollView>
                 <View style={styles.container}>
-
-
                     <View style={styles.pesquisa}>
-                        <View style={styles.sectionStyle}>
-                            <View style={styles.input}>
-                                <TextInput
-                                    style={{ fontWeight: 'bold' }}
-                                    placeholderTextColor={'#000'}
-                                    placeholder="Pesquisar"
-                                />
+                        <View style={{flexDirection: "row", justifyContent: "space-between", width: 350}}>
+                            <View style={styles.sectionStyle}>
+                                <View style={styles.input}>
+                                    <TextInput
+                                        style={{ fontWeight: 'bold' }}
+                                        placeholderTextColor={'#000'}
+                                        placeholder="Pesquisar"
+                                    />
+                                </View>
+                                <View style={{ marginLeft: '90%', position: 'absolute' }}>
+                                    <Ionicons name="search" size={24} color="#5e17eb" />
+                                </View>
                             </View>
-                            <View style={{ marginLeft: '90%', position: 'absolute' }}>
-                                <Ionicons name="search" size={24} color="#5e17eb" />
-                            </View>
-                        </View>
+                        
                         <View style={{ borderRadius: 2, backgroundColor: '#5e17eb', padding: 6.9, }}>
                             <TouchableOpacity>
                                 <Ionicons name="settings-sharp" size={24} color="white" />
                             </TouchableOpacity>
+                        </View>
                         </View>
                     </View>
                     <View style={styles.logoetext}>
@@ -230,7 +231,7 @@ export default function TelaH({ navigation }) {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.icones2}>
+                    {/*<View style={styles.icones2}>
                         <View>
                             <Text style={styles.textocaixa2}>catedral</Text>
                         </View>
@@ -240,7 +241,7 @@ export default function TelaH({ navigation }) {
                         <View>
                             <Text style={styles.textocaixa2}>canta galo</Text>
                         </View>
-                    </View>
+                        </View>*/}
                     <View style={{ height: 270, justifyContent: "center" }}>
                         <LinearGradient
                             style={styles.lineargradientcards}
@@ -282,11 +283,6 @@ export default function TelaH({ navigation }) {
                             ref={refscroll}
                         />
                     </View>
-                    <Button title='teste' onPress={()=>{
-                        let ultimoelemento = array.length
-                        console.log(array[ultimoelemento-1].index)
-                        
-                        }}/>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -303,7 +299,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         alignItems: 'center',
-        gap: 20,
+        justifyContent: "center"
     },
     sectionStyle: {
         flexDirection: 'row',
@@ -312,7 +308,7 @@ const styles = StyleSheet.create({
         borderColor: '#5e17eb',
         borderRadius: 4,
         alignItems: 'center',
-        height: 35,
+        height: 40,
         width: 300
     },
     input: {
@@ -327,6 +323,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 10,
+        height: 150
     },
     caixacomlinearg: {
         width: 255,
@@ -347,6 +344,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 40,
+        height: 150
     },
     linearGradientdosicon: {
         position: 'absolute',
