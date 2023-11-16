@@ -13,7 +13,7 @@ import {
     StyleSheet,
     ScrollView,
     FlatList,
-    Button
+
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -33,6 +33,7 @@ export default function TelaH({ navigation }) {
     const refscroll = useRef(null);
     
     const [array, setArray] = useState([]);
+
     const onViewableItemsChanged = (info) => {
         let itens = info.viewableItems
         setArray(itens)
@@ -41,9 +42,6 @@ export default function TelaH({ navigation }) {
       const viewabilityConfigCallbackPairs = useRef([
         { onViewableItemsChanged },
       ]);
-    
-    
-
 
     function goScroll() {
         let ultimoelemento = array.length
@@ -170,8 +168,9 @@ export default function TelaH({ navigation }) {
                             <Text style={{ color: '#fff', }}>Olá, seja bem-vindo(a) ao <Text style={{ fontWeight: 'bold' }}>Parintins Explorer !</Text></Text>
                         </View>
                     </View>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <View style={styles.icones}>
-                        <View style={{ alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center'}}>
                             <TouchableOpacity>
                                 <LinearGradient
                                     style={styles.linearGradientdosicon}
@@ -179,7 +178,7 @@ export default function TelaH({ navigation }) {
                                     start={{ x: 0, y: 1 }}
                                     end={{ x: 1, y: 1 }}
                                 />
-                                <Ionicons style={styles.iconesgradient} name="restaurant" size={24} color="white" />
+                                <Ionicons style={styles.iconesgradient} name="restaurant" size={30} color="white" />
                             </TouchableOpacity>
                             <Text>Restaurantes</Text>
                         </View>
@@ -191,7 +190,7 @@ export default function TelaH({ navigation }) {
                                     start={{ x: 0, y: 1 }}
                                     end={{ x: 1, y: 1 }}
                                 />
-                                <MaterialIcons style={styles.iconesgradient} name="hotel" size={24} color="white" />
+                                <MaterialIcons style={styles.iconesgradient} name="hotel" size={30} color="white" />
                             </TouchableOpacity>
                             <Text>Hotéis</Text>
                         </View>
@@ -203,7 +202,7 @@ export default function TelaH({ navigation }) {
                                     start={{ x: 0, y: 1 }}
                                     end={{ x: 1, y: 1 }}
                                 />
-                                <Ionicons style={styles.iconesgradient} name="cart" size={24} color="white" />
+                                <Ionicons style={styles.iconesgradient} name="cart" size={30} color="white" />
                             </TouchableOpacity>
                             <Text>Compras</Text>
                         </View>
@@ -215,11 +214,12 @@ export default function TelaH({ navigation }) {
                                     start={{ x: 0, y: 1 }}
                                     end={{ x: 1, y: 1 }}
                                 />
-                                <Ionicons style={styles.iconesgradient} name="ellipsis-horizontal" size={24} color="white" />
+                                <Ionicons style={styles.iconesgradient} name="ellipsis-horizontal" size={30} color="white" />
                             </TouchableOpacity>
                             <Text>Outros</Text>
                         </View>
                     </View>
+                    </ScrollView>
                     <View style={styles.maisvisitados}>
                         <View>
                             <Text style={styles.textoemnegritoemeiog}>Mais visitados</Text>
@@ -327,9 +327,10 @@ const styles = StyleSheet.create({
     },
     caixacomlinearg: {
         width: 255,
-        height: 50,
+        height: 60,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: 5
     },
     linearGradient: {
         position: 'absolute',
@@ -344,7 +345,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 40,
-        height: 150
+        height: 150,
+        padding: 20
     },
     linearGradientdosicon: {
         position: 'absolute',
