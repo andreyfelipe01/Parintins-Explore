@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
         height: 25
     },
     containerRenderItem: {
-        height: 225,
+        height: 240,
         width: 170,
         borderRadius: 15,
         elevation: 10,
@@ -419,7 +419,8 @@ const styles = StyleSheet.create({
     textrenderitem: {
         textAlign: "center",
         fontSize: 17,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        padding: 5
     },
     partgradbutton: {
         flexDirection: 'row',
