@@ -1,6 +1,7 @@
 import React, {
     useEffect,
-    useState
+    useState,
+    useRef
 } from "react";
 
 import {
@@ -11,13 +12,15 @@ import {
     Image,
     StyleSheet,
     ScrollView,
-    FlatList
+    FlatList,
+    Button
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 import { locations } from "../data/Locations.js";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,7 +29,35 @@ export default function TelaH({ navigation }) {
 
     const maxRating = [1, 2, 3, 4, 5];
     const [itemRatings, setItemRatings] = useState({});
+    const refscroll = useRef(null);
+    
+    const [array, setArray] = useState([]);
+    const onViewableItemsChanged = (info) => {
+        let itens = info.viewableItems
+        setArray(itens)
+        console.log(itens)
+      };
 
+      const viewabilityConfigCallbackPairs = useRef([
+        { onViewableItemsChanged },
+      ]);
+    
+    
+
+
+    function goScroll() {
+        let ultimoelemento = array.length
+        let nextindex = array[ultimoelemento-1].index;
+        refscroll.current.scrollToIndex({ index: nextindex, animated: true, viewPosition: 0.5 });
+        
+      }
+      
+      function backScroll() {
+        let primeiroelemento = array[0].index;
+        refscroll.current.scrollToIndex({ index: primeiroelemento, animated: true, viewPosition: 0.5 });
+      }
+      
+    
     function ItemLocal({ item }) {
 
         const itemRating = itemRatings[item.id] || 0;
@@ -98,9 +129,10 @@ export default function TelaH({ navigation }) {
 
     return (
         <SafeAreaView>
-            <View style={styles.container}>
+            <ScrollView>
+                <View style={styles.container}>
 
-                <ScrollView>
+
                     <View style={styles.pesquisa}>
                         <View style={styles.sectionStyle}>
                             <View style={styles.input}>
@@ -209,32 +241,54 @@ export default function TelaH({ navigation }) {
                             <Text style={styles.textocaixa2}>canta galo</Text>
                         </View>
                     </View>
-                    <View style={{ paddingLeft: 5, marginTop: 20, height: 300 }}>
+                    <View style={{ height: 270, justifyContent: "center" }}>
+                        <LinearGradient
+                            style={styles.lineargradientcards}
+                            colors={['rgba(240, 240, 240, 0.5)', 
+                            'rgba(255, 255, 255, 0)',
+                            'rgba(255, 255, 255, 0)',
+                            'rgba(255, 255, 255, 0)',
+                            'rgba(255, 255, 255, 0)',
+                            'rgba(255, 255, 255, 0)',
+                            'rgba(255, 255, 255, 0)',
+                            'rgba(240, 240, 240, 0.5)']}
+                            start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 1 }}
+                        />
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10, position: "absolute", width: '100%', zIndex: 2 }}>
+                            <TouchableOpacity
+                                onPress={() => { backScroll(); }}
+                                
+                            >
+                                <Entypo name="chevron-left" size={60} color="black" />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => { goScroll();  }}
+                                
+                            >
+                                <Entypo name="chevron-right" size={60} color="black" />
+                            </TouchableOpacity>
+                        </View>
                         <FlatList
                             data={locations}
                             keyExtractor={item => item.id}
                             renderItem={ItemLocal}
                             horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            viewabilityConfig={{viewAreaCoveragePercentThreshold: 40}}
+                            viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+                            //onScroll={(event) => console.log(event.nativeEvent.contentOffset, event.nativeEvent.contentSize.width - event.nativeEvent.layoutMeasurement.width )}
+                            contentContainerStyle={{ alignItems: "center", paddingHorizontal: 5 }}
+                            ref={refscroll}
                         />
                     </View>
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-
-                    <Text>Espaço</Text>
-                    <Text>Espaço</Text>
-                </ScrollView>
-                
-            </View>
+                    <Button title='teste' onPress={()=>{
+                        let ultimoelemento = array.length
+                        console.log(array[ultimoelemento-1].index)
+                        
+                        }}/>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -259,8 +313,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         alignItems: 'center',
         height: 35,
-        width: '65%',
-        marginLeft: '10%'
+        width: 300
     },
     input: {
         paddingLeft: 5
@@ -274,11 +327,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 10,
-        marginTop: '-7%'
     },
     caixacomlinearg: {
-        width: '53%',
-        height: '34%',
+        width: 255,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -295,7 +347,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 40,
-        marginTop: '8%'
     },
     linearGradientdosicon: {
         position: 'absolute',
@@ -311,7 +362,6 @@ const styles = StyleSheet.create({
     maisvisitados: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: '8%',
         width: '100%',
         paddingHorizontal: 15,
         justifyContent: 'space-between'
@@ -336,7 +386,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 40,
-        marginTop: '8%'
     },
     img2: {
         width: 120,
@@ -346,14 +395,14 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 5,
+        height: 25
     },
     containerRenderItem: {
         height: 225,
         width: 170,
         borderRadius: 15,
         elevation: 10,
-        marginHorizontal: 10
+        marginHorizontal: 20
     },
     flexlocal: {
         backgroundColor: '#FFF',
@@ -387,5 +436,13 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
     },
-
+    lineargradientcards:{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1,
+        pointerEvents: 'none'
+    }
 });
